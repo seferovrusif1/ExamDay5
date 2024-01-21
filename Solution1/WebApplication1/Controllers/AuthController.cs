@@ -9,14 +9,16 @@ namespace WebApplication1.Controllers
     public class AuthController : Controller
     {
         //TODO:RESULT ERRORLARI FORECH ILE SUMMRY E ELAVE ET
+        IConfiguration _configuration { get; }
         UserManager<AppUser> _userManager { get; }
         SignInManager<AppUser> _signinManager { get; }
         RoleManager<IdentityRole> _roleManager { get; }
-        public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signinManager, RoleManager<IdentityRole> roleManager)
+        public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signinManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signinManager = signinManager;
             _roleManager = roleManager;
+            _configuration = configuration;
         }
         public async Task<IActionResult> Register()
         {
@@ -108,7 +110,7 @@ namespace WebApplication1.Controllers
                 {
                     FullName = "Admin",
                     UserName = "Admin",
-                    Email = "Admin@gmail.com"
+                    Email = Convert.ToString(_configuration["Admin:Email"])
                 };
                 var result = await _userManager.CreateAsync(user, "Admin123");
                 if (!result.Succeeded)

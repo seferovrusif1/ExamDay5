@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InstructorListItemVM>
+﻿@model PaginationVM<IEnumerable<InstructorListItemVM>>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,42 +16,33 @@
         }
 
     </style>
+    @section Style{
+        <link href="~/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    }
+    @section Scripts{
+        <script>
+
+            $("#dataTable").on("click", "#prod-pag a", function (ev) {
+                ev.preventDefault();
+                fetch($(this).attr("href"))
+                    .then(res => res.text())
+                    .then(data => $("#dataTable").html(data))
+            })
+
+
+        </script>
+    }
+
 </head>
 <body>
 
     <h2>Instructors List</h2>
+    <h4><a asp-action="Create" asp-area="Admin">Create Instructors </a> </h4>
+    <div id="dataTable">
+        <partial model="Model" name="_InstructorPaginationPartial" />
 
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Profession</th>
-            <th>SocialMediaLinks</th>
-            <th>Update</th>
-            <th>Delete</th>
+    </div>
 
-        </tr>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-            <td>@item.Profession</td>
-        
-                @if(item.SocialMediaLinks==null)
-                {
-                    <td>No Link</td>
-                }
-                else
-                {
-                        <td>@string.Join(",",item.SocialMediaLinks)</td>
-                }
-            <td><a asp-action="Update" asp-area="Admin">Update</a></td>
-            <td><a asp-action="Delete" asp-area="Admin">Delete</a></td>
-        </tr>
-        }
-
-    </table>
 
 </body>
 </html>

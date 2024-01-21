@@ -6,8 +6,9 @@ namespace WebApplication1.Areas.Admin.ViewModels.InstructorsVMs
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ImagePath { get; set; }
         public string Profession { get; set; }
         public IEnumerable<string>? SocialMediaLinks { get; set; }
-        public int IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

@@ -1,0 +1,46 @@
+﻿@model PaginationVM<IEnumerable<InstructorListItemVM>>
+   
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>ImagePath</th>
+        <th>Profession</th>
+        <th>SocialMediaLinks</th>
+        <th>Update</th>
+        <th>Delete</th>
+
+    </tr>
+    @foreach (var item in Model.items)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td> <i class="@Html.Raw(item.Name)" style="color: #3b5998;"></i></td>
+            <td><img width="80" src="~/@item.ImagePath" /></td>
+            <td>@item.Profession</td>
+
+            @if (item.SocialMediaLinks == null)
+            {
+                <td>No Link</td>
+            }
+            else
+            {
+                <td>@string.Join(",",item.SocialMediaLinks)</td>
+            }
+            <td><a asp-action="Update" asp-route-id="@item.Id" asp-area="Admin">Update</a></td>
+            <td><a asp-action="Delete" asp-route-id="@item.Id" asp-area="Admin">Delete</a></td>
+        </tr>
+    }
+
+</table>
+    <table>
+        <ul id="prod-pag" class="pagination">
+        <li class='page-item @(Model.HasPrev ? "" : "disabled")'><a class="page-link" asp-action="Pagination" asp-route-currentpage="@(Model.currentpage - 1)" asp-route-take="1">Prev</a></li>
+        @for(int i = 1; i <= Model.lastpage; i++)
+        {
+            <li class='page-item @(Model.currentpage==i ? "active": "") '><a class="page-link" asp-action="Pagination" asp-route-currentpage="@i" asp-route-take="1">@i</a></li>
+        }
+        <li class='page-item @(Model.HasNext ? "" : "disabled")'><a class="page-link" asp-action="Pagination" asp-route-currentpage="@(Model.currentpage + 1)" asp-route-take="1">Next</a></li>
+        </ul>
+    </table>
+    

@@ -18,6 +18,7 @@
 
     <!-- Custom styles for this template-->
     <link href="~/Admin/css/sb-admin-2.min.css" rel="stylesheet">
+    @await RenderSectionAsync("Style", required: false)
 
 </head>
 
@@ -41,7 +42,7 @@
             <hr class="sidebar-divider my-0"/>
 
             <li class="nav-item">
-                <a class="nav-link" asp-area="">
+                <a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Home Page</span>
                 </a>
@@ -339,6 +340,8 @@
 
 <!-- Custom scripts for all pages-->
 <script src="~/Admin/js/sb-admin-2.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
 
 </body>
 

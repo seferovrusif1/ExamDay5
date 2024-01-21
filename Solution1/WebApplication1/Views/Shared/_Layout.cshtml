@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using WebApplication1.Helpers;
+@using WebApplication1.Models;
+@inject SettingDataService service
+@{
+    setting setting = await service.GetSettingDataAsync(); 
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -31,26 +37,26 @@
         <div class="row py-2 px-lg-5">
             <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
                 <div class="d-inline-flex align-items-center text-white">
-                    <small><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</small>
+                    <small><i class="fa fa-phone-alt mr-2"></i>@setting.Phone</small>
                     <small class="px-3">|</small>
-                    <small><i class="fa fa-envelope mr-2"></i>info@example.com</small>
+                    <small><i class="fa fa-envelope mr-2"></i>@setting.Email</small>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-white px-2" href="">
+                    <a class="text-white px-2" href="@setting.Fb">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a class="text-white px-2" href="">
+                    <a class="text-white px-2" href="@setting.Twitter">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a class="text-white px-2" href="">
+                    <a class="text-white px-2" href="@setting.Linkedin">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a class="text-white px-2" href="">
+                    <a class="text-white px-2" href="@setting.Insta">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a class="text-white pl-2" href="">
+                    <a class="text-white pl-2" href="@setting.Yt">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
@@ -82,6 +88,17 @@
                         </div>
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    @if (User.Identity.IsAuthenticated){
+                        <p  class=" nav-item nav-link">@User.Identity.Name</p>
+                        <a Asp-action="Logout" asp-controller="Auth" class="nav-item nav-link">Logout</a>
+                        <a Asp-action="Index" asp-controller="Home" asp-area="Admin" class="nav-item nav-link">Admin Panel</a>
+                    }
+                    else
+                    {
+                        <a Asp-action="Login" asp-controller="Auth" class="nav-item nav-link">Login</a>
+                        <a Asp-action="Register" asp-controller="Auth" class="nav-item nav-link">Register</a>
+
+                    }
                 </div>
                 <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Join Us</a>
             </div>
@@ -114,9 +131,9 @@
             <div class="row">
                 <div class="col-md-4 mb-5">
                     <h3 class="text-white mb-4">Get In Touch</h3>
-                    <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
-                    <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
-                    <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                    <p><i class="fa fa-map-marker-alt mr-2"></i>@setting.Adress</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>@setting.Phone</p>
+                    <p><i class="fa fa-envelope mr-2"></i>@setting.Email</p>
                     <div class="d-flex justify-content-start mt-4">
                         <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-twitter"></i></a>
                         <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-facebook-f"></i></a>

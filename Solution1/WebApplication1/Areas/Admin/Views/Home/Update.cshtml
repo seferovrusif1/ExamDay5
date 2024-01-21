@@ -1,0 +1,27 @@
+﻿@model InstructorUpdateVM
+<form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input asp-for="Name" type="text" id="Name" class="form-control" placeholder="Name">
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div> 
+    <div class="mb-3">
+        <label class="form-label">Last img</label>
+        <img src="~/@Model.Lastimg" width="100px" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">ImagePath</label>
+        <input asp-for="ImagePath" accept="image/*" id="disabledTextInput" class="form-control" placeholder="ImagePath">
+        <span class="text-danger" asp-validation-for="ImagePath"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ProfessionId" class="form-label">Profession</label>
+        <select asp-for="ProfessionId" id="Profession" class="form-select" asp-items='@new SelectList(ViewBag.Profession,"Id","Title")'>
+            <option disabled selected>Select Profession</option>
+        </select>
+        <span class="text-danger" asp-validation-for="ProfessionId"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

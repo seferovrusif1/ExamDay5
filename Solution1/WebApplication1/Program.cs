@@ -22,7 +22,7 @@ namespace WebApplication1
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.SignIn.RequireConfirmedEmail = false;
             }).AddDefaultTokenProviders().AddEntityFrameworkStores<ExamDay5DBContext>();
-            
+            builder.Services.AddScoped<SettingDataService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -34,6 +34,7 @@ namespace WebApplication1
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
